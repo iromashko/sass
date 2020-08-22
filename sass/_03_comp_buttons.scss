@@ -16,3 +16,56 @@
   text-decoration: none;
   box-shadow: 0 1px 2px #000000;
 }
+
+$Btn-colors_Map: (
+  'prim-c': $btn-bg-prim-c,
+  'secondary-c': $btn-bg-secondary-c,
+  'success-c': $btn-bg-success-c,
+  'danger-c': $btn-bg-danger-c,
+  'warning-c': $btn-bg-warning-c,
+  'info-c': $btn-bg-info-c,
+  'light-c': $btn-bg-light-c,
+  'dark-c': $btn-bg-dark-c,
+  'link-c': $btn-bg-prim-c,
+);
+
+@mixin Btn_bg_transition($speed: 0.5s) {
+  transition: all $speed ease;
+}
+
+@mixin Buttons {
+  @each $btn_name, $btn_value in $Btn-colors_Map {
+    &-#{$btn_name} {
+      background-color: $btn_value;
+      @include Btn_bg_transition();
+      @if $btn_value == $btn-bg-warning-c {
+        color: $btn-bg-dark-c;
+        @include Btn_bg_transition();
+      }
+      @if $btn_value == $btn-bg-light-c {
+        color: $btn-bg-dark-c;
+        @include Btn_bg_transition();
+      }
+      @if $btn_name == 'link-c' {
+        background-color: transparent;
+        color: $btn_value;
+        @include Btn_bg_transition();
+      }
+      &:hover {
+        @include Btn_bg_transition();
+        background-color: darken($btn_value, 10%);
+        color: $btn-bg-light-c;
+        @if $btn_name == 'link-c' {
+          background-color: transparent;
+          color: darken($btn_value, 10%);
+          text-decoration: underline;
+          @include Btn_bg_transition();
+        }
+      }
+    }
+  }
+}
+
+.btn {
+  @include Buttons;
+}
