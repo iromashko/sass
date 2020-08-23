@@ -29,6 +29,17 @@ $Btn-colors_Map: (
   'link-c': $btn-bg-prim-c,
 );
 
+$Btn_Outline-Colors_Map: (
+  'outline-prim-c': $btn-bg-prim-c,
+  'outline-secondary-c': $btn-bg-secondary-c,
+  'outline-success-c': $btn-bg-success-c,
+  'outline-danger-c': $btn-bg-danger-c,
+  'outline-warning-c': $btn-bg-warning-c,
+  'outline-info-c': $btn-bg-info-c,
+  'outline-light-c': $btn-bg-light-c,
+  'outline-dark-c': $btn-bg-dark-c,
+);
+
 @mixin Btn_bg_transition($speed: 0.5s) {
   transition: all $speed ease;
 }
@@ -59,6 +70,34 @@ $Btn-colors_Map: (
           background-color: transparent;
           color: darken($btn_value, 10%);
           text-decoration: underline;
+          @include Btn_bg_transition();
+        }
+      }
+    }
+  }
+
+  @each $outline_name, $outline_value in $Btn_Outline-Colors_Map {
+    &-#{$outline_name} {
+      color: $outline_value;
+      border: 1px solid $outline_value;
+      @include Btn_bg_transition();
+
+      @if $outline_name == 'outline-light-c' {
+        color: darken($outline_value, 90%);
+      }
+
+      &:hover {
+        @include Btn_bg_transition();
+        background-color: $outline_value;
+        color: $btn-bg-light-c;
+
+        @if $outline_name == 'outline-light-c' {
+          background-color: darken($outline_value, 10%);
+          color: $outline_value;
+        }
+
+        @if $outline_name == 'outline-warning-c' {
+          color: darken($outline_value, 90%);
           @include Btn_bg_transition();
         }
       }
