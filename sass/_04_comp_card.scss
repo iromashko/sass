@@ -64,10 +64,10 @@ $Card-Fonts: (
     }
   }
   .card-body {
-    padding: $content_padding;
+    padding: $content-padding;
   }
 }
 
 .card {
-  @include CardBody();
+  @include CardBody(1rem);
 }
