@@ -1,0 +1,73 @@
+#Cards {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+}
+
+.card {
+  border: 1px solid gray;
+  display: flex;
+  flex-direction: column;
+  border-radius: 5px;
+
+  &-img-top {
+    width: 100%;
+  }
+  &-img-bg {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+
+    img {
+      position: absolute;
+      height: inherit;
+      width: inherit;
+      z-index: -1;
+    }
+  }
+}
+
+$Card-Text-Align: (
+  'right': right,
+  'center': center,
+  'left': left,
+);
+
+$Card-Fonts: (
+  'title': 1rem,
+  'price': 1rem,
+  'text': 1rem,
+  'header': 1rem,
+  'footer': 1rem,
+);
+
+@mixin CardBody($content-padding: 0rem) {
+  @each $align_name, $align_value in $Card-Text-Align {
+    &-text-#{$align_name} {
+      text-align: $align_value;
+    }
+  }
+  @each $title_name, $title_value in $Card-Fonts {
+    &-#{$title_name} {
+      @if $title_name == 'header' {
+        border: none;
+        border-bottom: 1px solid rgba($dark-c, 0.3);
+        padding: 1rem 0.2rem;
+        background-color: rgba($dark-c, 0.1);
+      }
+      @if $title_name == 'footer' {
+        border: none;
+        border-top: 1px solid rgba($dark-c, 0.3);
+        padding: 1rem 0.2rem;
+        background-color: rgba($dark-c, 0.1);
+      }
+    }
+  }
+  .card-body {
+    padding: $content_padding;
+  }
+}
+
+.card {
+  @include CardBody();
+}
